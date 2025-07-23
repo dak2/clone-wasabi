@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  clone-wasabi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/clone-wasabi
+      # For X11 forwarding to display QEMU GUI
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=${DISPLAY}
+    # Privileged mode might be needed for some QEMU features
+    privileged: true
+    # Keep the container running
+    tty: true
+    # Network host mode for easier QEMU networking
+    network_mode: "host"
+    # Command to run when starting the container
+    # This is just a shell so you can run commands manually
+    command: /bin/bash

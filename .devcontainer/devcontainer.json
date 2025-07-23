@@ -1,0 +1,47 @@
+{
+  "name": "Clone Wasabi Development",
+  "dockerFile": "Dockerfile",
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "vscode",
+      "installZsh": true,
+      "upgradePackages": true
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest",
+      "ppa": false
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "vadimcn.vscode-lldb",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "rust-analyzer.checkOnSave.command": "clippy",
+        "rust-analyzer.cargo.features": [],
+        "rust-analyzer.linkedProjects": [
+          "/workspace/repo/wasabi/Cargo.toml"
+        ]
+      }
+    }
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "rustup toolchain install nightly-2024-01-01 && rustup component add rustfmt rust-src --toolchain nightly-2024-01-01 && rustup target add x86_64-unknown-linux-gnu --toolchain nightly-2024-01-01",
+  "mounts": [
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+  ],
+  "runArgs": [
+    "--privileged"
+  ],
+  "containerEnv": {
+    "DISPLAY": "docker.for.mac.host.internal:0",
+    "LIBGL_ALWAYS_SOFTWARE": "1"
+  }
+}
