@@ -8,6 +8,7 @@ mkdir -p mnt/EFI/BOOT/
 cp ${PATH_TO_EFI} mnt/EFI/BOOT/BOOTX64.EFI
 
 qemu-system-x86_64 \
+  -m 4G \
   -bios ../../third_party/ovmf/RELEASEX64_OVMF.fd \
   -drive format=raw,file=fat:rw:mnt \
   -net nic,model=virtio \
