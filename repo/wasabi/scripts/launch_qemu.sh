@@ -21,7 +21,6 @@ qemu-system-x86_64 \
 RETCODE=$?
 set -e
 if [ $RETCODE -eq 0 ]; then
-  printf "Test failed\n"
   exit 0
 elif [ $RETCODE -eq 3 ]; then
   printf "\nPASS\n"
