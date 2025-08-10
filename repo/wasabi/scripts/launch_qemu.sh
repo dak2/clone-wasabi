@@ -6,6 +6,7 @@ PATH_TO_EFI="$1"
 rm -rf mnt
 mkdir -p mnt/EFI/BOOT/
 cp ${PATH_TO_EFI} mnt/EFI/BOOT/BOOTX64.EFI
+mkdir -p log
 
 set +e
 qemu-system-x86_64 \
@@ -14,6 +15,8 @@ qemu-system-x86_64 \
   -drive format=raw,file=fat:rw:mnt \
   -net nic,model=virtio \
   -display gtk,grab-on-hover=on \
+  -chardev stdio,id=char_com1,mux=on,logfile=log/com1.txt \
+  -serial chardev:char_com1 \
   -device isa-debug-exit,iobase=0xf4,iosize=0x01
 RETCODE=$?
 set -e
