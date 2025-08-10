@@ -13,8 +13,8 @@ qemu-system-x86_64 \
   -bios ../../third_party/ovmf/RELEASEX64_OVMF.fd \
   -drive format=raw,file=fat:rw:mnt \
   -net nic,model=virtio \
-  -display gtk,grab-on-hover=on
-
+  -display gtk,grab-on-hover=on \
+  -device isa-debug-exit,iobase=0xf4,iosize=0x01
 RETCODE=$?
 set -e
 if [ $RETCODE -eq 0 ]; then
